@@ -9,7 +9,7 @@
       "methods": [
         "post"
       ],
-      "route": "/light-on"
+      "route": "/light-trigger"
     },
     {
       "type": "http",
