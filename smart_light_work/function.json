@@ -5,7 +5,7 @@
       "authLevel": "anonymous",
       "type": "httpTrigger",
       "direction": "in",
-      "name": "req",
+      "command": "req",
       "methods": [
         "post"
       ],
@@ -14,7 +14,7 @@
     {
       "type": "http",
       "direction": "out",
-      "name": "$return"
+      "command": "$return"
     }
   ]
 }
