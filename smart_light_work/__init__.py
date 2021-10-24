@@ -1,4 +1,5 @@
 import logging
+import json
 import azure.functions as func
 
 
@@ -15,17 +16,15 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             command = req_body.get("command")
 
     if command == "on":
-        return func.HttpResponse({
-            "data": {
-                "light_status": "Light is ON",
-                "environment": "Work"
-            }
-        })
+        return func.HttpResponse(json.dumps({
+            "data": "Light is ON",
+            "environment": "Work"
+        }))
     elif command == "off":
-        return func.HttpResponse({
+        return func.HttpResponse(json.dumps({
             "data": "Light is OFF",
             "environment": "Work"
-        })
+        }))
     else:
         return func.HttpResponse(
             "Please pass a valid command on/off on the query string or in the request body",

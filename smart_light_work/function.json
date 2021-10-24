@@ -5,16 +5,15 @@
       "authLevel": "anonymous",
       "type": "httpTrigger",
       "direction": "in",
-      "command": "req",
+      "name": "req",
       "methods": [
         "post"
-      ],
-      "route": "/light-trigger"
+      ]
     },
     {
       "type": "http",
       "direction": "out",
-      "command": "$return"
+      "name": "$return"
     }
   ]
 }
