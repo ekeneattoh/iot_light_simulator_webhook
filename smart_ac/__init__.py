@@ -1,24 +1,35 @@
 import logging
-
+import json
 import azure.functions as func
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    name = req.params.get('name')
-    if not name:
+    command = req.params.get('command')
+    if not command:
         try:
             req_body = req.get_json()
         except ValueError:
             pass
         else:
-            name = req_body.get('name')
+            command = req_body.get('command')
 
-    if name:
-        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
+    if command == "on":
+        return func.HttpResponse(
+            json.dumps({
+                "data": "AC is ON",
+                "environment": "Home"
+
+            })
+        )
+    elif command == "off":
+        return func.HttpResponse(json.dumps({
+            "data": "AC is OFF",
+            "environment": "Home"
+        }))
     else:
         return func.HttpResponse(
-             "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
-             status_code=200
+            "Please pass a valid command on/off on the query string or in the request body",
+            status_code=400
         )

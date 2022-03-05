@@ -6,30 +6,25 @@ import azure.functions as func
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    command = req.params.get('command')
-    if not command:
+    temp = req.params.get('temp')
+    if not temp:
         try:
             req_body = req.get_json()
         except ValueError:
             pass
         else:
-            command = req_body.get('command')
+            temp = req_body.get('temp')
 
-    if command == "on":
+    if int(temp) >= 1:
         return func.HttpResponse(
             json.dumps({
-                "data": "AC is ON",
+                "temperature": temp,
                 "environment": "Home"
 
             })
         )
-    elif command == "off":
-        return func.HttpResponse(json.dumps({
-            "data": "AC is OFF",
-            "environment": "Home"
-        }))
     else:
         return func.HttpResponse(
-            "Please pass a valid command on/off on the query string or in the request body",
+            "Please pass a valid temp above 0 on the query string or in the request body",
             status_code=400
         )
